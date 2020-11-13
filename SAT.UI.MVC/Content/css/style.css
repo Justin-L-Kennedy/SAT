@@ -168,7 +168,7 @@ table tr th { color: #688a7e;}
 
 .login-img3-body{
 
-  background: url('../img/bg-1.jpg') no-repeat center center fixed;
+  background: url('../img/bg-1.jpg') no-repeat center center;
 
   -webkit-background-size: cover;
 
@@ -218,11 +218,13 @@ table tr th { color: #688a7e;}
 
     background: rgba(213,215,222,0.9);
 
+    margin-bottom: 25em;
+
 }
 
 .login-form a{
 
-    color: #688a7e !important;
+    color: #688a7e /*!important*/;
 
 }
 
@@ -388,7 +390,7 @@ table tr th { color: #688a7e;}
 
 .login-form a {
 
-    color: #b6b6b6;
+    color: #ffffff;
 
 }
 
@@ -1752,7 +1754,7 @@ div[data-role="editor-toolbar"] {
 
   margin-right: 10px;
 
-  float: left;
+  /*float: left;*/
 
   font-size: 30px;
 

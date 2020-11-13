@@ -1,0 +1,120 @@
+﻿@model IEnumerable<SAT.DATA.EF.Student>
+
+@{
+    ViewBag.Title = "Students";
+}
+
+<!--overview start-->
+<div class="row">
+    <div class="col-lg-12">
+        <ol class="breadcrumb page-header">
+            <li><i class="icon_house_alt"></i><a href="@Url.Action("Index", "Home")">Dashboard</a></li>
+            <li><i class="icon_group"></i>@ViewBag.Title</li>
+        </ol>
+    </div>
+</div>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a class="btn btn-info" href="@Url.Action("Create")"><i class="icon_plus_alt2"></i></a>
+    </p>
+}
+<table class="table data-table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Major)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZipCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhotoUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentStatus.SSName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Major)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZipCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.PhotoUrl)*@
+                    <img src="~/Content/img/studentimages/t_@item.PhotoUrl" alt="Student Image" title="@item.FullName" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentStatus.SSName)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.StudentId })"><i class="icon_pencil"></i></a>
+                        }
+                        <a class="btn btn-success" href="@Url.Action("Details", new { id = item.StudentId })"><i class="icon_search"></i></a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.StudentId })"><i class="icon_trash_alt"></i></a>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.data-table').DataTable();
+        });
+    </script>
+    }

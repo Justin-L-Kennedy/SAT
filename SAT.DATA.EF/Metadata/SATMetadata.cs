@@ -107,7 +107,8 @@ namespace SAT.DATA.EF
     [MetadataType(typeof(ScheduledClassMetadata))]
     public partial class ScheduledClass
     {
-
+        [Display(Name = "Class Summary")]
+        public string ClassSummary { get { return $"{StartDate:d} - {Courses.CourseName} - {Location}"; } }
     }
     #endregion
 
@@ -117,7 +118,7 @@ namespace SAT.DATA.EF
         [Display(Name = "Scheduled Class Status ID")]
         public int SCSID { get; set; }
 
-        [Display(Name = "Scheduled Class Status Name")]
+        [Display(Name = "Scheduled Class Status")]
         [Required(ErrorMessage = "* Scheduled Class Status Name is required")]
         [StringLength(50, ErrorMessage = "* Scheduled Class Status Name cannot be longer than 50 characters")]
         public string SCSName { get; set; }
@@ -132,8 +133,6 @@ namespace SAT.DATA.EF
     #endregion
 
     #region StudentMetadata
-
-
     public class StudentMetadata
     {
         [Display(Name = "Student ID")]
@@ -196,7 +195,7 @@ namespace SAT.DATA.EF
         [Display(Name = "Student Status ID")]
         public int SSID { get; set; }
 
-        [Display(Name = "Student Status Name")]
+        [Display(Name = "Student Status")]
         [Required(ErrorMessage = "* Student Status Name is required")]
         [StringLength(30, ErrorMessage = "* Student Status Name cannot be longer than 30 characters")]
         public string SSName { get; set; }

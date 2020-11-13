@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SAT.DATA.EF.Enrollment>
+
+@{
+    ViewBag.Title = "Enrollments";
+}
+
+<!--overview start-->
+<div class="row">
+    <div class="col-lg-12">
+        <ol class="breadcrumb page-header">
+            <li><i class="icon_house_alt"></i><a href="@Url.Action("Index", "Home")">Dashboard</a></li>
+            <li><i class="icon_contacts"></i>@ViewBag.Title</li>
+        </ol>
+    </div>
+</div>
+
+<p>
+    <a class="btn btn-info" href="@Url.Action("Create")"><i class="icon_plus_alt2"></i></a>
+</p>
+<table class="table data-table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EnrollmentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScheduledClass.ClassSummary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.FullName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ScheduledClass.ClassSummary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.FullName)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.EnrollmentId })"><i class="icon_pencil"></i></a>
+                        <a class="btn btn-success" href="@Url.Action("Details", new { id = item.EnrollmentId })"><i class="icon_search"></i></a>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.EnrollmentId })"><i class="icon_trash_alt"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.data-table').DataTable();
+        });
+    </script>
+}

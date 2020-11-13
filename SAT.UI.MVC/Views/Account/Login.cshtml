@@ -1,60 +1,61 @@
 ﻿@model SAT.UI.MVC.Models.LoginViewModel
 
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Home";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register a new user?", "Register")
-                </p>
-                <p>
-                    @Html.ActionLink("Forget your password?", "ForgotPassword")
-                </p>
-            }
-        </section>
+
+<div class="login-img3-body">
+    <div class="alert alert-block alert-danger fade in">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+        </button>
+        <strong>Restricted Access!</strong> You must be logged in to view this content. Please log in or contact the Admin if you are having issues.
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new SAT.UI.MVC.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+    <div class="container">
+        @if (Request.IsAuthenticated)
+        {
+            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="login-form">
+                    <div class="login-wrap">
+                        <p class="login-img"><i class="icon_lock-open_alt"></i></p>
+                        @Html.ActionLink("Students", "Index", "Students", null, new { type = "button", @class = "btn btn-info btn-lg btn-block" })
+                        @Html.ActionLink("Courses", "Index", "Courses", null, new { type = "button", @class = "btn btn-info btn-lg btn-block" })
+                        @Html.ActionLink("Enrollments", "Index", "Enrollments", null, new { type = "button", @class = "btn btn-info btn-lg btn-block" })
+                        <button class="btn btn-danger btn-lg btn-block" type="submit">Log Out</button>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="login-form">
+                    <div class="login-wrap">
+                        <p class="login-img"><i class="icon_lock_alt"></i></p>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon_profile"></i></span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <label class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe) Remember Me
+                            <span class="pull-right"> <a href="@Url.Action("ForgotPassword", "Account")"> Forgot Password?</a></span>
+                        </label>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Log In</button>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

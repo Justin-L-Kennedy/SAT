@@ -1,0 +1,41 @@
+﻿@model SAT.DATA.EF.StudentStatus
+
+@{
+    ViewBag.Title = "Student Status Details";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <ol class="breadcrumb page-header">
+            <li><i class="icon_house_alt"></i><a href="@Url.Action("Index", "Home")">Dashboard</a></li>
+            <li><i class="icon_group"></i><a href="@Url.Action("Index", "Students")">Students</a></li>
+            <li><i class="icon_id-2_alt"></i><a href="@Url.Action("Index", "StudentStatus")">Student Statuses</a></li>
+            <li><i class="icon_id_alt"></i>@ViewBag.Title</li>
+        </ol>
+    </div>
+</div>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SSName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SSDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSDescription)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SSID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
